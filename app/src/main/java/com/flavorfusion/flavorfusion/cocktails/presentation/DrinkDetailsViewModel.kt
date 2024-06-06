@@ -1,11 +1,7 @@
 package com.flavorfusion.flavorfusion.cocktails.presentation
 
-import android.util.Log
-import android.view.View
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.flavorfusion.flavorfusion.DrinkDetailsScreenRoute
 import com.flavorfusion.flavorfusion.cocktails.domain.use_cases.GetDrinkByIdUseCase
 import com.flavorfusion.flavorfusion.cocktails.presentation.model.DrinkDetailsModel
 import com.flavorfusion.flavorfusion.cocktails.presentation.model.asPresentation

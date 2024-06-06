@@ -1,5 +1,9 @@
 package com.flavorfusion.flavorfusion.cocktails.presentation
 
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,26 +14,34 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.flavorfusion.flavorfusion.cocktails.presentation.model.DrinkModel
-import com.flavorfusion.flavorfusion.cocktails.presentation.model.asPresentation
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun DrinksScreen(
+fun SharedTransitionScope.DrinksScreen(
     modifier: Modifier = Modifier,
     uiState: DrinkUIState,
     onDrinkClick: (DrinkModel) -> Unit,
+    animatedVisibilityScope: AnimatedVisibilityScope
 ) {
 
-    DrinksList(modifier = modifier, drinks = uiState.cocktails, onDrinkClick = onDrinkClick)
+    DrinksList(
+        modifier = modifier.background(color = Color.White),
+        drinks = uiState.cocktails,
+        onDrinkClick = onDrinkClick,
+        animatedVisibilityScope = animatedVisibilityScope
+    )
 }
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun DrinksList(
+fun SharedTransitionScope.DrinksList(
     modifier: Modifier = Modifier,
     drinks: List<DrinkModel>,
-    onDrinkClick: (DrinkModel) -> Unit
+    onDrinkClick: (DrinkModel) -> Unit,
+    animatedVisibilityScope: AnimatedVisibilityScope
 ) {
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -39,7 +51,7 @@ fun DrinksList(
         state = rememberLazyListState()
     ) {
         items(drinks) {
-            DrinkItem(drink = it, onDrinkClick = onDrinkClick)
+            DrinkItem(drink = it, onDrinkClick = onDrinkClick, animatedVisibilityScope = animatedVisibilityScope)
         }
     }
 

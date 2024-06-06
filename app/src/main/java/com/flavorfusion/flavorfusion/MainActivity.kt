@@ -32,6 +32,7 @@ import com.flavorfusion.flavorfusion.cocktails.presentation.DrinkDetailsScreen
 import com.flavorfusion.flavorfusion.cocktails.presentation.DrinkDetailsViewModel
 import com.flavorfusion.flavorfusion.cocktails.presentation.DrinkViewModel
 import com.flavorfusion.flavorfusion.cocktails.presentation.DrinksScreen
+import com.flavorfusion.flavorfusion.navigation.AppNavHost
 import com.flavorfusion.flavorfusion.ui.theme.FlavorFusionTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.serialization.Serializable
@@ -44,47 +45,13 @@ class MainActivity : ComponentActivity() {
         setContent {
             FlavorFusionTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    val drinksViewModel: DrinkViewModel = hiltViewModel()
-                    val drinksState = drinksViewModel.cocktails.collectAsState()
-
                     val navController = rememberNavController()
-
-                    NavHost(
-                        navController = navController,
-                        startDestination = DrinksScreenRoute
-                    ) {
-                        composable<DrinksScreenRoute> {
-                            DrinksScreen(
-                                modifier = Modifier.padding(innerPadding),
-                                uiState = drinksState.value,
-                                onDrinkClick = {
-                                    navController.navigate(DrinkDetailsScreenRoute(it.drinkId))
-                                    Log.i("MainActivity", "onDrinkClick: $it")
-                                }
-                            )
-                        }
-                        composable<DrinkDetailsScreenRoute> {
-                            val drinkDetailsViewModel: DrinkDetailsViewModel = hiltViewModel()
-                            val drinkDetails = drinkDetailsViewModel.drinkDetails.collectAsState()
-                            val args = it.toRoute<DrinkDetailsScreenRoute>()
-                            drinkDetailsViewModel.getDrinkDetails(args.drinkId)
-
-                            DrinkDetailsScreen(
-                                modifier = Modifier.padding(innerPadding),
-                                drinkDetailsState = drinkDetails.value
-                            )
-                        }
-                    }
+                    AppNavHost(
+                        modifier = Modifier.padding(innerPadding),
+                        navController = navController
+                    )
                 }
             }
         }
     }
 }
-
-@Serializable
-object DrinksScreenRoute
-
-@Serializable
-data class DrinkDetailsScreenRoute(
-    val drinkId: String
-)
