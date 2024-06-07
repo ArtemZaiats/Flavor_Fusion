@@ -43,7 +43,6 @@ fun AppNavHost(
                                 drinkImage = it.drinkImage
                             )
                         )
-                        Log.i("MainActivity", "onDrinkClick: $it")
                     },
                     animatedVisibilityScope = this
                 )
@@ -59,7 +58,8 @@ fun AppNavHost(
                     drinkName = args.drinkName,
                     drinkImage = args.drinkImage,
                     drinkDetailsState = drinkDetails.value,
-                    animatedVisibilityScope = this
+                    animatedVisibilityScope = this,
+                    onBackClick = { navController.popBackStack() }
                 )
             }
         }

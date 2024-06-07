@@ -46,7 +46,10 @@ fun SharedTransitionScope.DrinkItem(
             .fillMaxWidth()
             .clickable { onDrinkClick(drink) },
         elevation = CardDefaults.cardElevation(2.dp),
-        shape = RoundedCornerShape(8.dp)
+        shape = RoundedCornerShape(8.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = Color.White
+        )
     ) {
         AsyncImage(
             model = drink.drinkImage,
