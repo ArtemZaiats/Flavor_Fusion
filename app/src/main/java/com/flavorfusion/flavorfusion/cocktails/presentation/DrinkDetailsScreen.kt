@@ -1,17 +1,14 @@
 package com.flavorfusion.flavorfusion.cocktails.presentation
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -19,47 +16,29 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberTooltipState
-import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.airbnb.lottie.compose.LottieAnimation
-import com.airbnb.lottie.compose.LottieCompositionSpec
-import com.airbnb.lottie.compose.LottieConstants
-import com.airbnb.lottie.compose.animateLottieCompositionAsState
-import com.airbnb.lottie.compose.rememberLottieComposition
-import com.flavorfusion.flavorfusion.R
-import com.flavorfusion.flavorfusion.cocktails.domain.model.DrinkDetails
-import com.flavorfusion.flavorfusion.cocktails.presentation.components.CocktailLoading
 import com.flavorfusion.flavorfusion.cocktails.presentation.model.DrinkDetailsModel
+import com.flavorfusion.flavorfusion.ui.theme.NunitoFontFontFamily
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
@@ -99,131 +78,178 @@ fun SharedTransitionScope.DrinkBody(
             .background(color = Color.White),
         verticalArrangement = Arrangement.Top
     ) {
-        DrinkImage(
+        DrinkHeader(
             drinkImage = drinkImage,
+            drinkName = drinkName,
+            drink = drink,
             animatedVisibilityScope = animatedVisibilityScope,
             onBackClick = onBackClick
         )
         DrinkDetails(
             modifier = modifier,
-            drink = drink,
-            drinkName = drinkName,
-            animatedVisibilityScope = animatedVisibilityScope,
+            drink = drink
         )
     }
 }
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun SharedTransitionScope.DrinkImage(
+fun SharedTransitionScope.DrinkHeader(
     modifier: Modifier = Modifier,
     drinkImage: String,
+    drinkName: String,
+    drink: DrinkDetailsModel,
     animatedVisibilityScope: AnimatedVisibilityScope,
     onBackClick: () -> Unit
 ) {
-    Box(modifier = Modifier.fillMaxWidth()) {
-        AsyncImage(
-            model = drinkImage,
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
+    Column(
+        Modifier
+            .fillMaxWidth()
+            .background(color = Color.White)
+    ) {
+        Box(modifier = Modifier.fillMaxWidth()) {
+            AsyncImage(
+                model = drinkImage,
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .aspectRatio(4 / 3.3f)
+                    .sharedElement(
+                        state = rememberSharedContentState(key = "image/$drinkImage"),
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        boundsTransform = { _, _ ->
+                            tween(durationMillis = 500)
+                        },
+                        renderInOverlayDuringTransition = false
+                    )
+            )
+            Column(
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier
+                    .align(Alignment.TopStart)
+                    .padding(16.dp)
+                    .size(32.dp)
+                    .clip(shape = CircleShape)
+                    .clickable { onBackClick() }
+                    .background(color = Color.White, shape = CircleShape)
+                    .border(
+                        width = 1.dp,
+                        color = Color.LightGray,
+                        shape = CircleShape
+                    )
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Close,
+                    contentDescription = null,
+                    modifier = Modifier
+                        .size(24.dp)
+                )
+            }
+            Box(
+                modifier = Modifier
+                    .align(alignment = Alignment.BottomCenter)
+                    .fillMaxWidth()
+                    .height(16.dp)
+                    .background(
+                        color = Color.White,
+                        shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
+                    )
+            )
+        }
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier
                 .fillMaxWidth()
-                .aspectRatio(4 / 3f)
-                .sharedElement(
-                    state = rememberSharedContentState(key = "image/$drinkImage"),
-                    animatedVisibilityScope = animatedVisibilityScope,
-                    boundsTransform = { _, _ ->
-                        tween(durationMillis = 500)
-                    },
-                    renderInOverlayDuringTransition = false
-                )
-        )
-        Column(
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier
-                .align(Alignment.TopStart)
-                .padding(16.dp)
-                .size(32.dp)
-                .clip(shape = CircleShape)
-                .clickable { onBackClick() }
-                .background(color = Color.White, shape = CircleShape)
-                .border(
-                    width = 1.dp,
-                    color = Color.LightGray,
-                    shape = CircleShape
-                )
+                .background(color = Color.White)
+                .padding(horizontal = 16.dp)
         ) {
-            Icon(
-                imageVector = Icons.Default.Close,
-                contentDescription = null,
+            Text(
+                text = drinkName,
+                style = TextStyle(
+                    fontFamily = NunitoFontFontFamily,
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight(700),
+                    color = Color.Black
+                ),
+                maxLines = 3,
                 modifier = Modifier
-                    .size(24.dp)
+                    .fillMaxWidth(0.6f)
+                    .sharedElement(
+                        state = rememberSharedContentState(key = "text/${drink.drinkName}"),
+                        animatedVisibilityScope = animatedVisibilityScope,
+                    )
+            )
+            Text(
+                text = drink.category,
+                style = TextStyle(
+                    fontFamily = NunitoFontFontFamily,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp,
+                    color = Color.Black
+                ),
+                modifier = Modifier
+                    .padding(8.dp)
+                    .background(color = Color(0xFF81E6F3), shape = RoundedCornerShape(50.dp))
+                    .padding(8.dp)
             )
         }
     }
 }
 
-@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun SharedTransitionScope.DrinkDetails(
+fun DrinkDetails(
     modifier: Modifier = Modifier,
     drink: DrinkDetailsModel,
-    drinkName: String,
-    animatedVisibilityScope: AnimatedVisibilityScope,
 ) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween,
+    Column(
+        verticalArrangement = Arrangement.spacedBy(16.dp),
         modifier = Modifier
-            .fillMaxWidth()
-            .background(
-                color = Color.White,
-                shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
-            )
+            .fillMaxSize()
             .padding(16.dp)
     ) {
-        Text(
-            text = drinkName,
-            style = TextStyle(
-                fontFamily = FontFamily.SansSerif,
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.Black
-            ),
-            maxLines = 3,
-            modifier = Modifier
-                .fillMaxWidth(0.6f)
-                .sharedElement(
-                    state = rememberSharedContentState(key = "text/${drink.drinkName}"),
-                    animatedVisibilityScope = animatedVisibilityScope,
+        drink.ingredients?.forEach {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Start,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(
+                    text = it.key.orEmpty(),
+                    style = TextStyle(
+                        fontFamily = NunitoFontFontFamily,
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight(600),
+                        color = Color.Black
+                    ),
+                    modifier = Modifier.fillMaxWidth(0.5f)
                 )
-        )
+                Text(
+                    text = it.value ?: "",
+                    style = TextStyle(
+                        fontFamily = NunitoFontFontFamily,
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight(600),
+                        color = Color.Black
+                    ),
+                    modifier = Modifier.padding(start = 16.dp)
+                )
+            }
+        }
+
         Text(
-            text = drink.category,
+            text = drink.instructions.orEmpty(),
             style = TextStyle(
-                fontFamily = FontFamily.SansSerif,
-                fontWeight = FontWeight.Bold,
-                fontSize = 16.sp,
+                fontFamily = NunitoFontFontFamily,
+                fontWeight = FontWeight(600),
+                fontSize = 18.sp,
                 color = Color.Black
             ),
             modifier = Modifier
-                .padding(8.dp)
-                .background(color = Color(0xFF81E6F3), shape = RoundedCornerShape(50.dp))
-                .padding(8.dp)
+                .fillMaxWidth()
+                .padding(top = 16.dp)
         )
     }
-    Spacer(modifier = Modifier.height(16.dp))
-    Text(
-        text = drink.instructions.orEmpty(),
-        style = TextStyle(
-            fontFamily = FontFamily.SansSerif,
-            fontSize = 18.sp,
-            color = Color.Black
-        ),
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp)
-    )
-
 }

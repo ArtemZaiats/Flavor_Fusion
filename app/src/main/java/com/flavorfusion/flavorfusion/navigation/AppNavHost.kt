@@ -1,9 +1,7 @@
 package com.flavorfusion.flavorfusion.navigation
 
-import android.util.Log
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionLayout
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
@@ -37,7 +35,7 @@ fun AppNavHost(
                     uiState = drinksState.value,
                     onDrinkClick = {
                         navController.navigate(
-                            Route.DrinkDetailsScreenRoute(
+                            Route.DrinkDetailsScreen(
                                 drinkId = it.drinkId,
                                 drinkName = it.drinkName,
                                 drinkImage = it.drinkImage
@@ -47,10 +45,10 @@ fun AppNavHost(
                     animatedVisibilityScope = this
                 )
             }
-            composable<Route.DrinkDetailsScreenRoute> {
+            composable<Route.DrinkDetailsScreen> {
                 val drinkDetailsViewModel: DrinkDetailsViewModel = hiltViewModel()
                 val drinkDetails = drinkDetailsViewModel.drinkDetails.collectAsState()
-                val args = it.toRoute<Route.DrinkDetailsScreenRoute>()
+                val args = it.toRoute<Route.DrinkDetailsScreen>()
                 drinkDetailsViewModel.getDrinkDetails(args.drinkId)
 
                 DrinkDetailsScreen(

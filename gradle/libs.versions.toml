@@ -20,6 +20,7 @@ serialization = "1.6.3"
 googleServices = "4.4.2"
 firebaseCrashlytics = "3.0.1"
 composeAnimation = "1.7.0-beta02"
+uiTextGoogleFonts = "1.6.7"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -51,6 +52,16 @@ hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt"
 navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "composeNavigation" }
 compose-animation = { group = "androidx.compose.animation", name = "animation", version.ref = "composeAnimation" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
+androidx-ui-text-google-fonts = { module = "androidx.compose.ui:ui-text-google-fonts", version.ref = "uiTextGoogleFonts" }
+
+[bundles]
+androidx-ui = [
+    "androidx-ui",
+    "androidx-ui-graphics",
+    "androidx-ui-tooling",
+    "androidx-ui-tooling-preview",
+    "androidx-ui-text-google-fonts"
+    ]
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
