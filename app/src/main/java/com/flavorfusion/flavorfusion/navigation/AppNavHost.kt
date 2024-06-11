@@ -22,7 +22,7 @@ fun AppNavHost(
     navController: NavHostController
 ) {
     val drinksViewModel: DrinkViewModel = hiltViewModel()
-    val drinksState = drinksViewModel.cocktails.collectAsState()
+    val drinksState = drinksViewModel.drinks.collectAsState()
 
     SharedTransitionLayout {
         NavHost(

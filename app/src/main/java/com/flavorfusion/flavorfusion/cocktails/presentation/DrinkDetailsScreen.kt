@@ -37,7 +37,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.flavorfusion.flavorfusion.cocktails.presentation.components.CocktailLoading
 import com.flavorfusion.flavorfusion.cocktails.presentation.model.DrinkDetailsModel
+import com.flavorfusion.flavorfusion.cocktails.presentation.model.UIState
 import com.flavorfusion.flavorfusion.ui.theme.NunitoFontFontFamily
 
 @OptIn(ExperimentalSharedTransitionApi::class)
@@ -46,7 +48,7 @@ fun SharedTransitionScope.DrinkDetailsScreen(
     modifier: Modifier = Modifier,
     drinkName: String,
     drinkImage: String,
-    drinkDetailsState: DrinkDetailsUIState,
+    drinkDetailsState: UIState,
     animatedVisibilityScope: AnimatedVisibilityScope,
     onBackClick: () -> Unit
 ) {
@@ -66,29 +68,40 @@ fun SharedTransitionScope.DrinkBody(
     modifier: Modifier = Modifier,
     drinkName: String,
     drinkImage: String,
-    drinkDetailsState: DrinkDetailsUIState,
+    drinkDetailsState: UIState,
     animatedVisibilityScope: AnimatedVisibilityScope,
     onBackClick: () -> Unit
 ) {
-    val drink = drinkDetailsState.drinkDetails.getOrElse(0) { DrinkDetailsModel() }
 
-    Column(
-        modifier
-            .fillMaxSize()
-            .background(color = Color.White),
-        verticalArrangement = Arrangement.Top
-    ) {
-        DrinkHeader(
-            drinkImage = drinkImage,
-            drinkName = drinkName,
-            drink = drink,
-            animatedVisibilityScope = animatedVisibilityScope,
-            onBackClick = onBackClick
-        )
-        DrinkDetails(
-            modifier = modifier,
-            drink = drink
-        )
+    when (drinkDetailsState) {
+        is UIState.Loading -> {
+            CocktailLoading()
+        }
+        is UIState.Success<*> -> {
+            val drink = (drinkDetailsState.data as List<DrinkDetailsModel>).getOrElse(0) { DrinkDetailsModel() }
+
+            Column(
+                modifier
+                    .fillMaxSize()
+                    .background(color = Color.White),
+                verticalArrangement = Arrangement.Top
+            ) {
+                DrinkHeader(
+                    drinkImage = drinkImage,
+                    drinkName = drinkName,
+                    drink = drink,
+                    animatedVisibilityScope = animatedVisibilityScope,
+                    onBackClick = onBackClick
+                )
+                DrinkDetails(
+                    modifier = modifier,
+                    drink = drink
+                )
+            }
+        }
+        is UIState.Error -> {
+            //TODO
+        }
     }
 }
 
@@ -154,7 +167,7 @@ fun SharedTransitionScope.DrinkHeader(
                     .height(16.dp)
                     .background(
                         color = Color.White,
-                        shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
+                        shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp)
                     )
             )
         }

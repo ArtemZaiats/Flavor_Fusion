@@ -2,37 +2,51 @@ package com.flavorfusion.flavorfusion.cocktails.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.flavorfusion.flavorfusion.cocktails.domain.use_cases.GetDrinkByIdUseCase
+import com.flavorfusion.flavorfusion.cocktails.domain.model.Drink
 import com.flavorfusion.flavorfusion.cocktails.domain.use_cases.GetDrinksByAlcoholicUseCase
-import com.flavorfusion.flavorfusion.cocktails.presentation.model.DrinkDetailsModel
-import com.flavorfusion.flavorfusion.cocktails.presentation.model.DrinkModel
+import com.flavorfusion.flavorfusion.cocktails.presentation.model.UIState
 import com.flavorfusion.flavorfusion.cocktails.presentation.model.asPresentation
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class DrinkViewModel @Inject constructor(
     private val getDrinksByAlcoholicUseCase: GetDrinksByAlcoholicUseCase,
 ) : ViewModel() {
+    private val alcoholicDrinks = flow {
+        emit(UIState.Loading)
+        emit(getDrinksByAlcoholicUseCase("Alcoholic").toUIState())
+    }
 
-    val cocktails: StateFlow<DrinkUIState> = flow {
-        emit(getDrinksByAlcoholicUseCase("Alcoholic"))
-    }.map {
-        DrinkUIState(it.asPresentation())
-    }.stateIn(
+    private val nonAlcoholicDrinks = flow {
+        emit(UIState.Loading)
+        emit(getDrinksByAlcoholicUseCase("Non alcoholic").toUIState())
+    }
+
+    private val optionalAlcoholDrinks = flow {
+        emit(UIState.Loading)
+        emit(getDrinksByAlcoholicUseCase("Optional alcohol").toUIState())
+    }
+
+    val drinks: StateFlow<UIState> = merge(
+        nonAlcoholicDrinks,
+        optionalAlcoholDrinks,
+        alcoholicDrinks
+    ).stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5000),
-        initialValue = DrinkUIState()
+        initialValue = UIState.Loading
     )
 }
 
-data class DrinkUIState(val cocktails: List<DrinkModel> = listOf())
+private fun Result<List<Drink>>.toUIState(): UIState {
+    return fold(
+        onSuccess = { drinks -> UIState.Success(drinks.map { it.asPresentation() }) },
+        onFailure = { exception -> UIState.Error(exception.localizedMessage!!) }
+    )
+}

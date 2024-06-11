@@ -9,8 +9,11 @@ class GetDrinkByIdUseCase @Inject constructor(
     private val drinkRepository: DrinkRepository,
 ) {
 
-    suspend operator fun invoke(id: String): List<DrinkDetails> {
-        return drinkRepository.getDrinkById(id)
+    suspend operator fun invoke(id: String): Result<List<DrinkDetails>> {
+        return try {
+            Result.success(drinkRepository.getDrinkById(id))
+        } catch(e: Exception) {
+            Result.failure(e)
+        }
     }
-
 }

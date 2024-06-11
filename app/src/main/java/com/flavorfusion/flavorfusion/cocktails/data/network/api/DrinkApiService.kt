@@ -11,7 +11,7 @@ import retrofit2.http.Query
 interface DrinkApiService {
 
     @GET("filter.php")
-    suspend fun getDrinksByAlcoholic(@Query("a") category: String = "Alcoholic"): DrinksDTOResponse
+    suspend fun getDrinksByAlcoholic(@Query("a") category: String): DrinksDTOResponse
 
     @GET("lookup.php")
     suspend fun getDrinkById(
