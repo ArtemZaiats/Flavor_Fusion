@@ -17,4 +17,10 @@ interface DrinkApiService {
     suspend fun getDrinkById(
         @Query("i") id: String
     ): DrinkDetailsResponse
+
+    @GET("search.php")
+    suspend fun getDrinksByName(
+        @Query("s") name: String
+    ): DrinksDTOResponse
+
 }

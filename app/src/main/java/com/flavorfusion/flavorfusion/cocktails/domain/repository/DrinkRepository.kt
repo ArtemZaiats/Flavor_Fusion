@@ -8,4 +8,6 @@ interface DrinkRepository {
 
     suspend fun getDrinkById(id: String): List<DrinkDetails>
 
+    suspend fun getDrinkByName(name: String): List<Drink>
+
 }

@@ -42,6 +42,7 @@ fun AppNavHost(
                             )
                         )
                     },
+                    onSearchClick = { drinksViewModel.getDrinkByName(it) },
                     animatedVisibilityScope = this
                 )
             }

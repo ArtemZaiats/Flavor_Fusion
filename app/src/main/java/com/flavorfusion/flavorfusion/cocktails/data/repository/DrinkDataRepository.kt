@@ -22,6 +22,10 @@ class DrinkDataRepository @Inject constructor(private val drinkApiService: Drink
         return drinkDetails.map { it.toDrinkDetails() }
     }
 
+    override suspend fun getDrinkByName(name: String): List<Drink> {
+        return drinkApiService.getDrinksByName(name).drinks.map { it.toDrink() }
+    }
+
 }
 
 
