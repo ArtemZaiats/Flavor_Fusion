@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalSharedTransitionApi::class)
+
 package com.flavorfusion.flavorfusion.cocktails.presentation
 
 import androidx.compose.animation.AnimatedVisibilityScope
@@ -17,6 +19,9 @@ import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -24,26 +29,34 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.flavorfusion.flavorfusion.R
 import com.flavorfusion.flavorfusion.cocktails.presentation.components.CocktailLoading
+import com.flavorfusion.flavorfusion.cocktails.presentation.components.DrinksGrid
+import com.flavorfusion.flavorfusion.cocktails.presentation.components.DrinksList
 import com.flavorfusion.flavorfusion.cocktails.presentation.model.DrinkModel
 import com.flavorfusion.flavorfusion.cocktails.presentation.model.UIState
 
@@ -57,13 +70,13 @@ fun SharedTransitionScope.DrinksScreen(
     animatedVisibilityScope: AnimatedVisibilityScope
 ) {
     Column(
-        verticalArrangement = Arrangement.spacedBy(16.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
         modifier = modifier
             .fillMaxSize()
             .background(color = Color.White),
     ) {
         SearchPanel(onSearchClick = onSearchClick)
-        DrinksList(
+        DrinksGrid(
             uiState = uiState,
             onDrinkClick = onDrinkClick,
             animatedVisibilityScope = animatedVisibilityScope
@@ -82,7 +95,7 @@ fun SearchPanel(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp),
+            .padding(start = 16.dp, end = 16.dp, top = 8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         TextField(
@@ -91,7 +104,8 @@ fun SearchPanel(
             placeholder = { Text("Search drinks") },
             shape = RoundedCornerShape(16.dp),
             textStyle = TextStyle(
-                color = Color.Black
+                color = Color.Black,
+                fontSize = 20.sp
             ),
             leadingIcon = {
                 Icon(
@@ -150,46 +164,6 @@ fun SearchPanel(
                 text = stringResource(R.string.search),
 
                 )
-        }
-    }
-}
-
-@OptIn(ExperimentalSharedTransitionApi::class)
-@Composable
-fun SharedTransitionScope.DrinksList(
-    modifier: Modifier = Modifier,
-    uiState: UIState,
-    onDrinkClick: (DrinkModel) -> Unit,
-    animatedVisibilityScope: AnimatedVisibilityScope
-) {
-    when (uiState) {
-        is UIState.Loading -> {
-            CocktailLoading()
-        }
-
-        is UIState.Success<*> -> {
-            LazyColumn(
-                verticalArrangement = Arrangement.spacedBy(16.dp),
-                modifier = modifier
-                    .fillMaxSize()
-                    .padding(start = 16.dp, end = 16.dp, bottom = 8.dp),
-                state = rememberLazyListState()
-            ) {
-                items(uiState.data as List<DrinkModel>) {
-                    DrinkItem(
-                        drink = it,
-                        onDrinkClick = onDrinkClick,
-                        animatedVisibilityScope = animatedVisibilityScope
-                    )
-                }
-                item {
-                    Spacer(modifier = Modifier.height(4.dp))
-                }
-            }
-        }
-
-        is UIState.Error -> {
-            //TODO
         }
     }
 }

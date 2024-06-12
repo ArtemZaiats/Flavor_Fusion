@@ -1,4 +1,4 @@
-package com.flavorfusion.flavorfusion.cocktails.presentation
+package com.flavorfusion.flavorfusion.cocktails.presentation.components
 
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
@@ -27,6 +27,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -81,6 +82,8 @@ fun SharedTransitionScope.DrinkItem(
                     fontWeight = FontWeight.Bold,
                     color = Color.Black
                 ),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
                 modifier = Modifier
                     .sharedElement(
                         state = rememberSharedContentState(key = "text/${drink.drinkName}"),
