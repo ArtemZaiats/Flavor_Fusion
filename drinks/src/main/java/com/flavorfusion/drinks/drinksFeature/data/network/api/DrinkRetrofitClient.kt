@@ -17,12 +17,12 @@ object DrinkRetrofitClient {
 
     @Singleton
     @Provides
-    fun provideDrinksRetrofitClient(): com.flavorfusion.drinks.drinksFeature.data.network.api.DrinkApiService {
+    fun provideDrinksRetrofitClient(): DrinkApiService {
         return Retrofit.Builder()
-            .baseUrl(com.flavorfusion.drinks.drinksFeature.data.network.api.DrinkRetrofitClient.BASE_URL)
+            .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create(com.flavorfusion.drinks.drinksFeature.data.network.api.DrinkApiService::class.java)
+            .create(DrinkApiService::class.java)
     }
 
 }
