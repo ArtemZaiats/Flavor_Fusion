@@ -6,15 +6,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
-import com.flavorfusion.flavorfusion.cocktails.presentation.DrinkDetailsScreen
-import com.flavorfusion.flavorfusion.cocktails.presentation.DrinkDetailsViewModel
-import com.flavorfusion.flavorfusion.cocktails.presentation.DrinkViewModel
-import com.flavorfusion.flavorfusion.cocktails.presentation.DrinksScreen
+import com.flavorfusion.drinks.drinksFeature.presentation.DrinkDetailsScreen
+import com.flavorfusion.drinks.drinksFeature.presentation.DrinkDetailsViewModel
+import com.flavorfusion.drinks.drinksFeature.presentation.DrinkViewModel
+import com.flavorfusion.drinks.drinksFeature.presentation.DrinksScreen
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable

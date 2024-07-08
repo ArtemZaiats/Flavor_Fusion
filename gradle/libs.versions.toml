@@ -1,7 +1,7 @@
 [versions]
 agp = "8.4.2"
 coilCompose = "2.6.0"
-firebaseBom = "33.1.0"
+firebaseBom = "33.1.1"
 hilt = "2.49"
 hiltNavigationCompose = "1.2.0"
 lottieCompose = "4.0.0"
@@ -10,16 +10,16 @@ kotlin = "2.0.0"
 koinAndroidxCompose = "3.4.6"
 coreKtx = "1.13.1"
 junit = "4.13.2"
-junitVersion = "1.1.5"
-espressoCore = "3.5.1"
-lifecycleRuntimeKtx = "2.8.2"
+junitVersion = "1.2.1"
+espressoCore = "3.6.1"
+lifecycleRuntimeKtx = "2.8.3"
 activityCompose = "1.9.0"
 composeBom = "2024.06.00"
-composeNavigation = "2.8.0-beta03"
+composeNavigation = "2.8.0-beta04"
 serialization = "1.6.3"
 googleServices = "4.4.2"
-firebaseCrashlytics = "3.0.1"
-composeAnimation = "1.7.0-beta03"
+firebaseCrashlytics = "3.0.2"
+composeAnimation = "1.7.0-beta04"
 uiTextGoogleFonts = "1.6.8"
 
 [libraries]
@@ -65,6 +65,7 @@ androidx-ui = [
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 jetbrains-kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }

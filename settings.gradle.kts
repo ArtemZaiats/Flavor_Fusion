@@ -21,4 +21,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "Flavor Fusion"
 include(":app")
- 
+include(":drinks")
+include(":common")
