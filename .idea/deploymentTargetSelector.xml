@@ -13,10 +13,7 @@
         </DropdownSelection>
         <DialogSelection />
       </SelectionState>
-      <SelectionState runConfigName="drinks">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
-      <SelectionState runConfigName="common">
+      <SelectionState runConfigName="features.feature-drinks">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>
