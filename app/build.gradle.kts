@@ -39,7 +39,7 @@ android {
 
 dependencies {
 
-    implementation(projects.features.featureDrinks)
+    implementation(projects.features.drinks)
     implementation(projects.common)
 
     implementation(libs.androidx.core.ktx)

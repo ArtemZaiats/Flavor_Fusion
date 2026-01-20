@@ -27,7 +27,7 @@
             <option value="$PROJECT_DIR$/build-logic/convention" />
             <option value="$PROJECT_DIR$/common" />
             <option value="$PROJECT_DIR$/features" />
-            <option value="$PROJECT_DIR$/features/feature-drinks" />
+            <option value="$PROJECT_DIR$/features/drinks" />
           </set>
         </option>
       </GradleProjectSettings>
