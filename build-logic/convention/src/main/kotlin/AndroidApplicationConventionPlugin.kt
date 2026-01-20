@@ -16,18 +16,18 @@ class AndroidApplicationConventionPlugin: Plugin<Project> {
 
             extensions.configure<ApplicationExtension> {
                 configureKotlinAndroid(this)
-                configureDefaultConfig()
+                configureDefaultConfig(libs)
             }
         }
     }
 }
 
-private fun ApplicationExtension.configureDefaultConfig() {
+private fun ApplicationExtension.configureDefaultConfig(libs: VersionCatalog) {
     defaultConfig {
         applicationId = "com.flavorfusion.flavorfusion"
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        targetSdk = libs.findVersion("targetSdk").get().requiredVersion.toInt()
+        versionCode = libs.findVersion("versionCode").get().requiredVersion.toInt()
+        versionName = libs.findVersion("versionName").get().requiredVersion
 
         vectorDrawables {
             useSupportLibrary = true

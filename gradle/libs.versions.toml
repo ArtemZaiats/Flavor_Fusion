@@ -1,4 +1,8 @@
 [versions]
+targetSdk = "34"
+versionCode = "1"
+versionName = "1.0"
+
 agp = "8.4.2"
 coilCompose = "2.6.0"
 firebaseBom = "33.1.1"
