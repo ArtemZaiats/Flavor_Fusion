@@ -26,6 +26,9 @@
             <option value="$PROJECT_DIR$/build-logic" />
             <option value="$PROJECT_DIR$/build-logic/convention" />
             <option value="$PROJECT_DIR$/common" />
+            <option value="$PROJECT_DIR$/common/common-data" />
+            <option value="$PROJECT_DIR$/common/common-domain" />
+            <option value="$PROJECT_DIR$/common/common-ui" />
             <option value="$PROJECT_DIR$/features" />
             <option value="$PROJECT_DIR$/features/drinks" />
           </set>

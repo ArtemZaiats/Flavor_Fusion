@@ -11,6 +11,8 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
             apply(plugin = "flavorfusion.android.hilt")
 
             dependencies {
+                add("api", project(":common:common-ui"))
+                add("implementation", project(":common:common-domain"))
 
                 add("implementation", libs.findLibrary("androidx.core.ktx").get())
                 add("implementation", libs.findLibrary("appcompat").get())

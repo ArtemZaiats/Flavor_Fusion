@@ -32,7 +32,6 @@ kotlin-ksp = "2.0.0-1.0.21"
 kotlinPluginParcelize = "1.8.10"
 appcompat = "1.7.1"
 material = "1.13.0"
-coreKtxVersion = "1.17.0"
 kotlin-coroutines = "1.6.4"
 org-jetbrains-kotlin-jvm = "1.9.22"
 
@@ -79,7 +78,7 @@ android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", ver
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtxVersion" }
+core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 
 [bundles]
 androidx-ui = [

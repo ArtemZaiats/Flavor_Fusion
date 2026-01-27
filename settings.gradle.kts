@@ -26,4 +26,6 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 rootProject.name = "Flavor_Fusion"
 include(":app")
 include(":features:drinks")
-include(":common")
+include(":common:common-data")
+include(":common:common-domain")
+include(":common:common-ui")

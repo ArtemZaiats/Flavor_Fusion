@@ -13,9 +13,8 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.unit.dp
-import com.flavorfusion.common.components.CocktailLoading
+import com.flavorfusion.common_ui.compose.CocktailLoading
 import com.flavorfusion.drinks.drinksFeature.presentation.model.DrinkModel
 import com.flavorfusion.drinks.drinksFeature.presentation.model.UIState
 

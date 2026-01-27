@@ -37,8 +37,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.flavorfusion.common.components.CocktailLoading
-import com.flavorfusion.common.ui.theme.NunitoFontFontFamily
+import com.flavorfusion.common_ui.compose.CocktailLoading
+import com.flavorfusion.common_ui.theme.NunitoFontFontFamily
 import com.flavorfusion.drinks.drinksFeature.presentation.model.DrinkDetailsModel
 import com.flavorfusion.drinks.drinksFeature.presentation.model.UIState
 

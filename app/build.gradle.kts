@@ -38,9 +38,9 @@ android {
 }
 
 dependencies {
-
+    implementation(projects.common.commonUi)
+    implementation(projects.common.commonDomain)
     implementation(projects.features.drinks)
-    implementation(projects.common)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
