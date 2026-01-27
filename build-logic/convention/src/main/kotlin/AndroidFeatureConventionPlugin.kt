@@ -14,7 +14,7 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                 add("api", project(":common:common-ui"))
                 add("implementation", project(":common:common-domain"))
 
-                add("implementation", libs.findLibrary("androidx.core.ktx").get())
+                add("implementation", libs.findLibrary("core.ktx").get())
                 add("implementation", libs.findLibrary("appcompat").get())
                 add("testImplementation", libs.findLibrary("junit").get())
                 add("androidTestImplementation", libs.findLibrary("androidx.junit.ext").get())
