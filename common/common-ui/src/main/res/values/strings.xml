@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="backend_error_title">Oops, something went wrong 😞</string>
+    <string name="backend_error_dismiss">Understand</string>
+    <string name="backend_error_internal_error">A system error has occurred. Please, try again or contact support for assistance.</string>
+    <string name="network_error_title">No Internet Connection</string>
+    <string name="network_error_message">Please check your internet connection and try again.</string>
+    <string name="network_error_dismiss">Dismiss</string>
+    <string name="internet_no_ping_error_title">Unstable Internet Connection</string>
+    <string name="internet_no_ping_error_message">Please check your internet connection or contact your provider.</string>
+    <string name="mock_timeout_error">Mock! Timeout error</string>
+    <string name="mock_server_error">Mock! Server error</string>
+</resources>

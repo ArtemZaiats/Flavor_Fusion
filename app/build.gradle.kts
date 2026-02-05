@@ -56,8 +56,6 @@ dependencies {
     implementation(platform(libs.firebase.bom))
 
     implementation(libs.koin.androidx.compose)
-    implementation(libs.retrofit)
-    implementation(libs.retrofit.converter.gson)
     implementation(libs.hilt.android)
     ksp(libs.androidx.hilt.compiler)
     implementation(libs.androidx.hilt.navigation.compose)

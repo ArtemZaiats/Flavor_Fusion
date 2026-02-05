@@ -9,13 +9,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.flavorfusion.flavorfusion.navigation.AppBottomBar
-import com.flavorfusion.flavorfusion.navigation.AppNavHost
-import com.flavorfusion.flavorfusion.navigation.DrinksNavHost
-import com.flavorfusion.flavorfusion.navigation.RecipesNavHost
+import com.flavorfusion.flavorfusion.navigation.AppNavigation
 import com.flavorfusion.flavorfusion.ui.theme.FlavorFusionTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -34,7 +30,7 @@ class MainActivity : ComponentActivity() {
                     },
                     floatingActionButtonPosition = FabPosition.Center
                 ) { innerPadding ->
-                    AppNavHost(
+                    AppNavigation(
                         modifier = Modifier.padding(innerPadding),
                         rootNavController = rootNavController
                     )
