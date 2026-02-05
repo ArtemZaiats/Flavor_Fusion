@@ -1,8 +1,5 @@
 package com.flavorfusion.drinks.drinksFeature.presentation.components
 
-import androidx.compose.animation.AnimatedVisibilityScope
-import androidx.compose.animation.ExperimentalSharedTransitionApi
-import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,13 +15,11 @@ import com.flavorfusion.common_ui.compose.CocktailLoading
 import com.flavorfusion.drinks.drinksFeature.presentation.model.DrinkModel
 import com.flavorfusion.drinks.drinksFeature.presentation.model.UIState
 
-@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun SharedTransitionScope.DrinksGrid(
+fun DrinksGrid(
     modifier: Modifier = Modifier,
     uiState: UIState,
-    onDrinkClick: (DrinkModel) -> Unit,
-    animatedVisibilityScope: AnimatedVisibilityScope
+    onDrinkClick: (DrinkModel) -> Unit
 ) {
 
     when (uiState) {
@@ -45,8 +40,7 @@ fun SharedTransitionScope.DrinksGrid(
                 items(data) {
                     DrinkItem(
                         drink = it,
-                        onDrinkClick = onDrinkClick,
-                        animatedVisibilityScope = animatedVisibilityScope
+                        onDrinkClick = onDrinkClick
                     )
                 }
                 item {

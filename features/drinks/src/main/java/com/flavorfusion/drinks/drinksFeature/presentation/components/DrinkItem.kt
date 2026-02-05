@@ -1,9 +1,5 @@
 package com.flavorfusion.drinks.drinksFeature.presentation.components
 
-import androidx.compose.animation.AnimatedVisibilityScope
-import androidx.compose.animation.ExperimentalSharedTransitionApi
-import androidx.compose.animation.SharedTransitionScope
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -28,13 +24,11 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.flavorfusion.drinks.drinksFeature.presentation.model.DrinkModel
 
-@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun SharedTransitionScope.DrinkItem(
+fun DrinkItem(
     modifier: Modifier = Modifier,
     drink: DrinkModel,
     onDrinkClick: (DrinkModel) -> Unit,
-    animatedVisibilityScope: AnimatedVisibilityScope
 ) {
     Card(
         modifier = modifier
@@ -53,13 +47,6 @@ fun SharedTransitionScope.DrinkItem(
             modifier = Modifier
                 .fillMaxWidth()
                 .aspectRatio(16 / 11f)
-                .sharedElement(
-                    state = rememberSharedContentState(key = "image/${drink.drinkImage}"),
-                    animatedVisibilityScope = animatedVisibilityScope,
-                    boundsTransform = { _, _ ->
-                        tween(durationMillis = 500)
-                    }
-                )
         )
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -79,10 +66,6 @@ fun SharedTransitionScope.DrinkItem(
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier
-                    .sharedElement(
-                        state = rememberSharedContentState(key = "text/${drink.drinkName}"),
-                        animatedVisibilityScope = animatedVisibilityScope
-                    )
             )
         }
     }

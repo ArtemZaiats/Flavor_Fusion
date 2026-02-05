@@ -1,9 +1,5 @@
 package com.flavorfusion.drinks.drinksFeature.presentation
 
-import androidx.compose.animation.AnimatedVisibilityScope
-import androidx.compose.animation.ExperimentalSharedTransitionApi
-import androidx.compose.animation.SharedTransitionScope
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -42,14 +38,12 @@ import com.flavorfusion.common_ui.theme.NunitoFontFontFamily
 import com.flavorfusion.drinks.drinksFeature.presentation.model.DrinkDetailsModel
 import com.flavorfusion.drinks.drinksFeature.presentation.model.UIState
 
-@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun SharedTransitionScope.DrinkDetailsScreen(
+fun DrinkDetailsScreen(
     modifier: Modifier = Modifier,
     drinkName: String,
     drinkImage: String,
     drinkDetailsState: UIState,
-    animatedVisibilityScope: AnimatedVisibilityScope,
     onBackClick: () -> Unit
 ) {
     DrinkBody(
@@ -57,19 +51,16 @@ fun SharedTransitionScope.DrinkDetailsScreen(
         drinkDetailsState = drinkDetailsState,
         drinkName = drinkName,
         drinkImage = drinkImage,
-        animatedVisibilityScope = animatedVisibilityScope,
         onBackClick = onBackClick
     )
 }
 
-@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun SharedTransitionScope.DrinkBody(
+fun DrinkBody(
     modifier: Modifier = Modifier,
     drinkName: String,
     drinkImage: String,
     drinkDetailsState: UIState,
-    animatedVisibilityScope: AnimatedVisibilityScope,
     onBackClick: () -> Unit
 ) {
 
@@ -93,7 +84,6 @@ fun SharedTransitionScope.DrinkBody(
                     drinkImage = drinkImage,
                     drinkName = drinkName,
                     drink = drink,
-                    animatedVisibilityScope = animatedVisibilityScope,
                     onBackClick = onBackClick
                 )
                 DrinkDetails(
@@ -110,14 +100,12 @@ fun SharedTransitionScope.DrinkBody(
     }
 }
 
-@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun SharedTransitionScope.DrinkHeader(
+fun DrinkHeader(
     modifier: Modifier = Modifier,
     drinkImage: String,
     drinkName: String,
     drink: DrinkDetailsModel,
-    animatedVisibilityScope: AnimatedVisibilityScope,
     onBackClick: () -> Unit
 ) {
     Column(
@@ -133,14 +121,6 @@ fun SharedTransitionScope.DrinkHeader(
                 modifier = Modifier
                     .fillMaxWidth()
                     .aspectRatio(4 / 3.3f)
-                    .sharedElement(
-                        state = rememberSharedContentState(key = "image/$drinkImage"),
-                        animatedVisibilityScope = animatedVisibilityScope,
-                        boundsTransform = { _, _ ->
-                            tween(durationMillis = 500)
-                        },
-                        renderInOverlayDuringTransition = false
-                    )
             )
             Column(
                 verticalArrangement = Arrangement.Center,
@@ -193,12 +173,7 @@ fun SharedTransitionScope.DrinkHeader(
                     color = Color.Black
                 ),
                 maxLines = 3,
-                modifier = Modifier
-                    .fillMaxWidth(0.6f)
-                    .sharedElement(
-                        state = rememberSharedContentState(key = "text/${drink.drinkName}"),
-                        animatedVisibilityScope = animatedVisibilityScope,
-                    )
+                modifier = Modifier.fillMaxWidth(0.6f)
             )
             Text(
                 text = drink.category,

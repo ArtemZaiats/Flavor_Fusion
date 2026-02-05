@@ -1,10 +1,5 @@
-@file:OptIn(ExperimentalSharedTransitionApi::class)
-
 package com.flavorfusion.drinks.drinksFeature.presentation
 
-import androidx.compose.animation.AnimatedVisibilityScope
-import androidx.compose.animation.ExperimentalSharedTransitionApi
-import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -42,14 +37,12 @@ import com.flavorfusion.drinks.drinksFeature.presentation.components.DrinksGrid
 import com.flavorfusion.drinks.drinksFeature.presentation.model.DrinkModel
 import com.flavorfusion.drinks.drinksFeature.presentation.model.UIState
 
-@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun SharedTransitionScope.DrinksScreen(
+fun DrinksScreen(
     modifier: Modifier = Modifier,
     uiState: UIState,
     onDrinkClick: (DrinkModel) -> Unit,
-    onSearchClick: (String) -> Unit,
-    animatedVisibilityScope: AnimatedVisibilityScope
+    onSearchClick: (String) -> Unit
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -60,8 +53,7 @@ fun SharedTransitionScope.DrinksScreen(
         SearchPanel(onSearchClick = onSearchClick)
         DrinksGrid(
             uiState = uiState,
-            onDrinkClick = onDrinkClick,
-            animatedVisibilityScope = animatedVisibilityScope
+            onDrinkClick = onDrinkClick
         )
     }
 }
